@@ -1,4 +1,7 @@
 ### Rust ###
+# Frank Ignore
+typed-contracts/
+deployments/
 
 # Ignore build artifacts from the local tests sub-crate.
 target/
