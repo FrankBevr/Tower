@@ -1,4 +1,7 @@
 [workspace]
 
 resolver = "1"
-members = ["src/greeter"]
+members = [
+  "src/greeter", 
+  "src/tower"
+]
