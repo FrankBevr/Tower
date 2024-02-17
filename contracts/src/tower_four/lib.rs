@@ -7,14 +7,22 @@ mod tower_four {
     #[ink(storage)]
     pub struct TowerFour {
         data: PSP34Data,        
+        id: u32,
     }
 
     impl TowerFour {
         #[ink(constructor)]
         pub fn new() -> Self {
-            Self { data: PSP34Data::new() }
+            Self { 
+                data: PSP34Data::new(), 
+                id: 0u32
+            }
+        }
+        pub fn get_id(&self) -> u32 {
+            self.id
         }
     }
+
 
     impl PSP34 for TowerFour {
         #[ink(message)]
@@ -70,7 +78,8 @@ mod tower_four {
     impl PSP34Mintable for TowerFour {
         #[ink(message)]
         fn mint(&mut self, id: Id) -> Result<(), PSP34Error> {
-            let _ = self.data.mint(self.env().caller(), id)?;
+             let _ = self.data.mint(self.env().caller(), psp34::Id::U32(self.id))?;
+            self.id += 1;
             Ok(())
         }
     }
