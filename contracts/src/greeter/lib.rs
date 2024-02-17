@@ -18,17 +18,10 @@ mod greeter {
     impl Greeter {
         /// Creates a new greeter contract initialized with the given value.
         #[ink(constructor)]
-        pub fn new(init_value: String) -> Self {
+        pub fn new() -> Self {
             Self {
-                message: init_value,
+                message: String::from("Hello Stan"),
             }
-        }
-
-        /// Creates a new greeter contract initialized to 'Hello ink!'.
-        #[ink(constructor)]
-        pub fn default() -> Self {
-            let default_message = String::from("Hello ink!");
-            Self::new(default_message)
         }
 
         /// Returns the current value of `message`.
