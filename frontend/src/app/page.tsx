@@ -11,9 +11,10 @@ import {
 } from '@scio-labs/use-inkathon'
 import { toast } from 'react-hot-toast'
 
-import { HomePageTitle } from '@/app/components/home-page-title'
-import { ChainInfo } from '@/components/web3/chain-info'
 import { ConnectButton } from '@/components/web3/connect-button'
+import { Canvas } from '@react-three/fiber'
+import Experience from './Experience'
+import Lights from './Lights'
 
 export default function HomePage() {
   const { api } = useInkathon()
@@ -36,6 +37,19 @@ export default function HomePage() {
     <>
       <button onClick={getGreeter}>Get Greeter</button>
       <ConnectButton />
+      <Canvas
+        shadows
+        camera={{
+          fov: 45,
+          near: 0.1,
+          far: 200,
+          position: [2.5, 4, 6],
+        }}
+      >
+        <Lights />
+        <Experience />
+
+      </Canvas>
     </>
   )
 }
