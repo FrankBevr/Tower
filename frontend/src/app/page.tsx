@@ -18,6 +18,7 @@ import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import Lights from './Lights'
 import TowerContract from '@inkathon/contracts/typed-contracts/contracts/tower_two'
+import LevaGreeter from './components/LevaGreeter'
 
 export default function HomePage() {
   const { api, activeAccount } = useInkathon()
@@ -56,8 +57,7 @@ export default function HomePage() {
 
   return (
     <>
-      <button onClick={getGreeter}>Get Greeter</button>
-      <button onClick={getTowerOne}>Get total Supply</button>
+      <LevaGreeter />
       <button onClick={mintTowerOne}>mint</button>
       <ConnectButton />
       <Canvas
