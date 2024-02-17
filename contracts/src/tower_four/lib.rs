@@ -2,7 +2,7 @@
 
 #[ink::contract]
 mod tower_four {
-    use psp34::{Id, PSP34Data, PSP34Error, PSP34 };
+    use psp34::{Id, PSP34Data, PSP34Error, PSP34,PSP34Mintable };
 
     #[ink(storage)]
     pub struct TowerFour {
@@ -64,6 +64,14 @@ mod tower_four {
         #[ink(message)]
         fn owner_of(&self, id: Id) -> Option<AccountId> {
             self.data.owner_of(&id)
+        }
+    }
+
+    impl PSP34Mintable for TowerFour {
+        #[ink(message)]
+        fn mint(&mut self, id: Id) -> Result<(), PSP34Error> {
+            let _ = self.data.mint(self.env().caller(), id)?;
+            Ok(())
         }
     }
 }
