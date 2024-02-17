@@ -10,10 +10,7 @@
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production next start",
     "type-check": "tsc --pretty --noEmit",
-    "sync-types": "typesync",
-    "lint": "prettier . --check && eslint .",
-    "lint:fix": "prettier . --write && eslint . --fix",
-    "lint:format": "prettier . --write"
+    "sync-types": "typesync"
   },
   "dependencies": {
     "@727-ventures/typechain-types": "^1.1.2",
@@ -60,23 +57,12 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bn.js": "~5.1.5",
     "@types/downloadjs": "^1.4.5",
-    "@types/eslint": "^8.56.2",
-    "@types/eslint-config-prettier": "^6.11.3",
     "@types/node": "^20.11.17",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
-    "@typescript-eslint/eslint-plugin": "^7.0.1",
-    "@typescript-eslint/parser": "^7.0.1",
     "concurrently": "^8.2.2",
-    "eslint": "^8.56.0",
-    "eslint-config-next": "^14.0.4",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-react": "^7.33.2",
-    "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
   }

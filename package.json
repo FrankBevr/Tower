@@ -1,8 +1,8 @@
 {
   "name": "@inkathon/monorepo",
-  "description": "Full-Stack DApp Boilerplate for ink! Smart Contracts",
-  "homepage": "https://inkathon.xyz",
-  "author": "Scio Labs <hello@scio.xyz> (https://scio.xyz)",
+  "description": "Tower Defense Game on Ink!",
+  "homepage": "https://github.com/frankbevr",
+  "author": "Frank Dierolf <frank_dierolf@web.de>",
   "private": true,
   "workspaces": [
     "frontend",
@@ -18,19 +18,10 @@
     "start": "pnpm run -F frontend start",
     "node": "pnpm run -F contracts node",
     "type-check": "pnpm run -F '*' type-check",
-    "sync-types": "pnpm run -F '*' sync-types && pnpm install",
-    "lint": "pnpm run -F '*' lint",
-    "lint:fix": "pnpm run -F '*' lint:fix",
-    "lint:format": "pnpm run -F '*' lint:format",
-    "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish"
+    "sync-types": "pnpm run -F '*' sync-types && pnpm install"
   },
   "devDependencies": {
-    "@changesets/changelog-github": "^0.5.0",
-    "@changesets/cli": "^2.27.1",
-    "lint-staged": "^15.2.2",
     "next": "^14.0.4",
-    "simple-git-hooks": "^2.9.0",
     "typescript": "^5.3.3",
     "typesync": "^0.12.1"
   }
