@@ -5,4 +5,5 @@ members = [
   "src/greeter", 
   "src/tower_one",
   "src/tower_two",
+  "src/tower_three",
 ]
