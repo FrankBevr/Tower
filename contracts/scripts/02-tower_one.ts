@@ -7,7 +7,7 @@ const main = async () => {
   const initParams = await initPolkadotJs()
   const { api, chain, account } = initParams
   const { abi, wasm } = await getDeploymentData('tower_one')
-  const tower_one = await deployContract(api, account, abi, wasm, 'default', [])
+  const tower_one = await deployContract(api, account, abi, wasm, 'new', [])
   await writeContractAddresses(chain.network, {
     tower_one,
   })
