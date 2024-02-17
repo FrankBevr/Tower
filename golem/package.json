@@ -1,0 +1,17 @@
+{
+  "name": "@inkathon/golem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "node": "yagna service run",
+    "start": "YAGNA_APPKEY=7e40fdfbf2824b7d9cb1e91b5ffe36d8 npx tsx blender.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@golem-sdk/golem-js": "^2.0.1",
+    "commander": "^12.0.0"
+  }
+}
