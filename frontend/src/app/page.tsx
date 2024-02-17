@@ -8,6 +8,7 @@ import {
   decodeOutput,
   useInkathon,
   useRegisteredContract,
+  useRegisteredTypedContract,
 } from '@scio-labs/use-inkathon'
 import { toast } from 'react-hot-toast'
 
@@ -19,6 +20,7 @@ import Lights from './Lights'
 export default function HomePage() {
   const { api } = useInkathon()
   const { contract: contractGreeter } = useRegisteredContract(ContractIds.Greeter)
+  const { contract: contractTowerOne } = useRegisteredContract(ContractIds.TowerOne)
 
   const getGreeter = async () => {
     if (!contractGreeter || !api) return
@@ -27,6 +29,15 @@ export default function HomePage() {
     console.log(output)
     if (isError) throw new Error(decodedOutput)
   }
+
+  const getTowerOne = async () => {
+    if (!contractTowerOne || !api) return
+    console.log(contractTowerOne)
+    const result = await contractQuery(api, '', contractTowerOne, 'PSP34::total_supply')
+    const { output, isError, decodedOutput } = decodeOutput(result, contractTowerOne, 'PSP34::total_supply')
+    console.log(output)
+  }
+
   const { error } = useInkathon()
   useEffect(() => {
     if (!error) return
@@ -36,6 +47,7 @@ export default function HomePage() {
   return (
     <>
       <button onClick={getGreeter}>Get Greeter</button>
+      <button onClick={getTowerOne}>Get total Supply</button>
       <ConnectButton />
       <Canvas
         shadows
