@@ -16,26 +16,33 @@ import { ConnectButton } from '@/components/web3/connect-button'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
 import Lights from './Lights'
+import TowerContract from '@inkathon/contracts/typed-contracts/contracts/tower_one'
 
 export default function HomePage() {
   const { api } = useInkathon()
   const { contract: contractGreeter } = useRegisteredContract(ContractIds.Greeter)
   const { contract: contractTowerOne } = useRegisteredContract(ContractIds.TowerOne)
+  const { typedContract } = useRegisteredTypedContract(ContractIds.TowerOne, TowerContract)
+
 
   const getGreeter = async () => {
     if (!contractGreeter || !api) return
     const result = await contractQuery(api, '', contractGreeter, 'greet')
     const { output, isError, decodedOutput } = decodeOutput(result, contractGreeter, 'greet')
     console.log(output)
-    if (isError) throw new Error(decodedOutput)
   }
 
   const getTowerOne = async () => {
-    if (!contractTowerOne || !api) return
+    if (!contractTowerOne || !api || !typedContract) return
     console.log(contractTowerOne)
     const result = await contractQuery(api, '', contractTowerOne, 'PSP34::total_supply')
     const { output, isError, decodedOutput } = decodeOutput(result, contractTowerOne, 'PSP34::total_supply')
     console.log(output)
+
+    // Alternativaly: Fetch it with typed contract instance
+    const typedResult = await typedContract.query.totalSupply()
+    console.log('Result from typed contract: ', typedResult.value.ok?.toString())
+    if (isError) throw new Error(decodedOutput)
   }
 
   const { error } = useInkathon()
@@ -60,7 +67,6 @@ export default function HomePage() {
       >
         <Lights />
         <Experience />
-
       </Canvas>
     </>
   )
