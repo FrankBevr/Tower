@@ -3,5 +3,6 @@
 resolver = "1"
 members = [
   "src/greeter", 
-  "src/tower"
+  "src/tower_one",
+  "src/tower_two",
 ]
