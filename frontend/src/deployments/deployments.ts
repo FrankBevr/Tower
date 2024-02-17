@@ -24,6 +24,9 @@ import abiTowerFour from '@inkathon/contracts/deployments/tower_four/tower_four.
 export enum ContractIds {
   Greeter = 'greeter',
   TowerOne = 'tower_one',
+  TowerTwo = 'tower_two',
+  TowerThree = 'tower_three',
+  TowerFour = 'tower_four',
 }
 
 export const getDeployments = async (): Promise<SubstrateDeployment[]> => {
