@@ -31,10 +31,9 @@ selected_object_name = random.choice(obj_list)
 if selected_object_name in bpy.data.objects:
     selected_object = bpy.data.objects[selected_object_name]
     select_hierarchy(selected_object)
-    output_dir = "C:/Users/frank/OneDrive/Desktop/"
+    output_dir = "./"
     filename = "output.glb"
     filepath = os.path.join(output_dir, filename)
     bpy.ops.export_scene.gltf(filepath=filepath, use_selection=True)
 else:
-    printf(f"No object named {selected_object_name} in the scene")
-
+    print(f"No object named {selected_object_name} in the scene")
