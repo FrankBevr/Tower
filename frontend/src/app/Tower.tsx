@@ -1,5 +1,9 @@
 import * as THREE from 'three';
 useGLTF.preload("./towerSquare_sampleA.glb");
+useGLTF.preload("./towerSquare_sampleB.glb");
+useGLTF.preload("./towerSquare_sampleC.glb");
+useGLTF.preload("./towerSquare_sampleD.glb");
+useGLTF.preload("./towerSquare_sampleE.glb");
 
 import { Clone, useGLTF } from "@react-three/drei";
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
@@ -8,11 +12,24 @@ import { button, useControls } from "leva";
 import { useState } from 'react';
 
 export function Tower() {
-  const model = useGLTF("./towerSquare_sampleA.glb");
+  const towerA = useGLTF("./towerSquare_sampleA.glb");
+  const towerB = useGLTF("./towerSquare_sampleB.glb");
+  const towerC = useGLTF("./towerSquare_sampleC.glb");
+  const towerD = useGLTF("./towerSquare_sampleD.glb");
+  const towerE = useGLTF("./towerSquare_sampleE.glb");
+
+  const towerModels = [towerA, towerB, towerC, towerD, towerE];
+
   const [row, setRow] = useState(1);
   const [column, setColumn] = useState(1);
   const [towerLevel, setTowerLevel] = useState(1);
+  const [towerModel, setTowerModel] = useState(towerModels[0]);
+  const [upgradeLevel, setUpgradeLevel] = useState(0);
   const [, setTower] = useControls("Tower", () => ({
+    upgradeLevel: {
+      value: upgradeLevel,
+      disabled: true,
+    },
     towerLevel: {
       value: towerLevel,
       disabled: true,
@@ -30,8 +47,8 @@ export function Tower() {
     increase_column: button(() => increase_column()),
     decrease_column: button(() => decrease_column()),
     level_all_tower_up: button(() => level_all_tower_up()),
-
-  }), [row, column, towerLevel])
+    upgrade_all_tower: button(() => upgrade_all_tower()),
+  }), [row, column, towerLevel, towerModel, upgradeLevel])
 
   const increase_row = () => {
     setRow(row + 1);
@@ -58,6 +75,23 @@ export function Tower() {
       setTowerLevel(towerLevel + 1);
       setTower({ towerLevel: towerLevel })
     }
+    setTower({ towerLevel: towerLevel })
+    setTower({ upgradeLevel: upgradeLevel })
+  }
+  const upgrade_all_tower = () => {
+    if (upgradeLevel < towerModels.length - 1) {
+      setUpgradeLevel(upgradeLevel + 1);
+      setTowerModel(towerModels[upgradeLevel]);
+      setTower({ towerLevel: towerLevel })
+      setTower({ upgradeLevel: upgradeLevel })
+    } else if (upgradeLevel !== 4) {
+      setTowerLevel(1);
+      setTower({ towerLevel: towerLevel })
+      setTower({ upgradeLevel: upgradeLevel })
+    } else {
+      setTower({ towerLevel: towerLevel })
+      setTower({ upgradeLevel: upgradeLevel })
+    }
   }
 
   return (
@@ -73,7 +107,7 @@ export function Tower() {
               material={floorMaterial}
             >
             </mesh>
-            <Clone object={model.scene} scale={0.5 * towerLevel} position-x={i * 4} position-z={j * 4} />
+            <Clone object={towerModel.scene} scale={0.5 * towerLevel} position-x={i * 4} position-z={j * 4} />
           </group>
         ))
       ))}
