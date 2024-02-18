@@ -17,6 +17,8 @@ async function main(subnetTag: string, driver?: string, network?: string, maxPar
       console.log("Uploading the scene to the provider %s", ctx.provider.name);
       await ctx.uploadFile(`${DIR_NAME}/cube.blend`, "/golem/work/cube.blend");
       await ctx.uploadFile(`${DIR_NAME}/exporter.py`, "/golem/work/exporter.py");
+      await ctx.uploadFile(`${DIR_NAME}/tower.blend`, "/golem/work/tower.blend");
+      await ctx.uploadFile(`${DIR_NAME}/tower_exporter.py`, "/golem/work/tower_exporter.py");
       console.log("Upload of the scene to the provider %s finished", ctx.provider.name);
     });
 
@@ -24,9 +26,11 @@ async function main(subnetTag: string, driver?: string, network?: string, maxPar
       await ctx
         .beginBatch()
         .run("blender -b -P /golem/work/exporter.py -- /golem/work/cube.blend")
-        .downloadFile("/golem/work/output.glb", "./output.glb")
+        .downloadFile("/golem/work/output.glb", "./cube.glb")
+        .run("blender -b -P /golem/work/tower_exporter.py -- /golem/work/tower.blend")
+        .downloadFile("/golem/work/output.glb", "./tower.glb")
         .end();
-      console.log("Finished downloading output.glb");
+      console.log("Finished downloading cube.glb and tower.glb");
     })
   } catch (error) {
     console.error("Computation failed:", error);
