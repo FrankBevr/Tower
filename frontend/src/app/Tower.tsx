@@ -11,7 +11,12 @@ export function Tower() {
   const model = useGLTF("./towerSquare_sampleA.glb");
   const [row, setRow] = useState(1);
   const [column, setColumn] = useState(1);
+  const [towerLevel, setTowerLevel] = useState(1);
   const [, setTower] = useControls("Tower", () => ({
+    towerLevel: {
+      value: towerLevel,
+      disabled: true,
+    },
     row: {
       value: row,
       disabled: true,
@@ -24,12 +29,36 @@ export function Tower() {
     decrease_row: button(() => decrease_row()),
     increase_column: button(() => increase_column()),
     decrease_column: button(() => decrease_column()),
-  }));
+    level_all_tower_up: button(() => level_all_tower_up()),
 
-  const increase_row = () => { }
-  const decrease_row = () => { }
-  const increase_column = () => { }
-  const decrease_column = () => { }
+  }), [row, column, towerLevel])
+
+  const increase_row = () => {
+    setRow(row + 1);
+    setTower({ row: row })
+  }
+  const decrease_row = () => {
+    if (row > 0) {
+      setRow(row - 1)
+      setTower({ row: row })
+    }
+  };
+  const increase_column = () => {
+    setColumn(column + 1);
+    setTower({ column: column })
+  }
+  const decrease_column = () => {
+    if (column > 0) {
+      setColumn(column - 1);
+      setTower({ column: column })
+    }
+  }
+  const level_all_tower_up = () => {
+    if (towerLevel <= 6) {
+      setTowerLevel(towerLevel + 1);
+      setTower({ towerLevel: towerLevel })
+    }
+  }
 
   return (
     <>
@@ -44,7 +73,7 @@ export function Tower() {
               material={floorMaterial}
             >
             </mesh>
-            <Clone object={model.scene} scale={0.5} position-x={i * 4} position-z={j * 4} />
+            <Clone object={model.scene} scale={0.5 * towerLevel} position-x={i * 4} position-z={j * 4} />
           </group>
         ))
       ))}
